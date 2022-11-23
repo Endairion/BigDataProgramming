@@ -1,7 +1,11 @@
 #Parallel and Sequential Processing----------------------------------------------------------------------------------------
 #set working directory by code
-setwd("D:/Big Data")
-getwd()
+install.packages('dplyr')
+install.packages('data.table')
+install.packages('tidyverse')
+install.packages('parallel')
+install.packages('lme4')
+setwd("/dataset/")
 library(data.table)
 library(dplyr)
 library(tidyverse)
@@ -10,9 +14,14 @@ library(lme4)
 
 #create function read multiple file using readr package
 df <- function(i){
-  list_cs_files <- list.files(path = "D:/Big Data") %>%
+  library(dplyr)
+  library(data.table)
+  library(tidyverse)
+  list_cs_files <- list.files(path = "~/BigDataProgramming/dataset") %>%
     map_df(~fread(.))
 }
+
+
 
 
 # detect the number of cores
@@ -109,3 +118,4 @@ ggplot(new_df, aes(x=category, y=mean)) +
   geom_point()
 
 #Descriptive Analysis============================================================
+
