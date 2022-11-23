@@ -119,3 +119,36 @@ ggplot(new_df, aes(x=category, y=mean)) +
 
 #Descriptive Analysis============================================================
 
+#Correlation Test==========================================================
+mosthighlycorrelated <- function(mydataframe,numtoreport)
+{
+  # find the correlations
+  cormatrix <- cor(mydataframe)
+  # set the correlations on the diagonal or lower triangle to zero,
+  # so they will not be reported as the highest ones:
+  diag(cormatrix) <- 0
+  cormatrix[lower.tri(cormatrix)] <- 0
+  # flatten the matrix into a dataframe for easy sorting
+  fm <- as.data.frame(as.table(cormatrix))
+  # assign human-friendly names
+  names(fm) <- c("First.Variable", "Second.Variable","Correlation")
+  # sort and print the top n correlations
+  head(fm[order(abs(fm$Correlation),decreasing=T),],n=numtoreport)
+}
+
+model <- select(df,"sugar","carb","estimated_diabetes_prevalence")
+mosthighlycorrelated(model,9)
+
+library(ggpubr)
+
+#Scatterplot to visualize correlation
+ggscatter(df,x="carb",y="estimated_diabetes_prevalence",
+          add="reg.line", conf.int = TRUE,
+          cor.coef=TRUE, cor.method = "pearson",
+          xlab = "Carb", ylab="Prevalence of Diabetes")
+
+ggscatter(df,x="sugar",y="estimated_diabetes_prevalence",
+          add="reg.line", conf.int = TRUE,
+          cor.coef=TRUE, cor.method = "pearson",
+          xlab = "Sugar", ylab="Prevalence of Diabetes")
+#Correlation Test==========================================================
