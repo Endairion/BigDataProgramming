@@ -152,3 +152,14 @@ ggscatter(df,x="sugar",y="estimated_diabetes_prevalence",
           cor.coef=TRUE, cor.method = "pearson",
           xlab = "Sugar", ylab="Prevalence of Diabetes")
 #Correlation Test==========================================================
+
+#Hypothesis Testing========================================================
+
+#hypothesis testing for prevalence of diabetes and carb
+model1 <-lm(estimated_diabetes_prevalence ~ carb, data = df)
+summary(model1)
+
+#hypothesis testing for prevalence of diabetes and sugar
+model2 <-lm(estimated_diabetes_prevalence ~ sugar, data = df)
+summary(model2)
+#Hypothesis Testing==========================================================
